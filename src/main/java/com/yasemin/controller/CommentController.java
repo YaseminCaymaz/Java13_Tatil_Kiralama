@@ -19,14 +19,17 @@ import static com.yasemin.constants.RestApiUrls.*;
 public class CommentController {
     private final CommentService commentService;
     @PostMapping(YORUM_YAP)
+    @CrossOrigin("*")
     public ResponseEntity<Boolean> createComment(@RequestBody CommentRequestDto dto) {
         return ResponseEntity.ok(commentService.createComment(dto));
     }
     @PutMapping(UPDATE)
+    @CrossOrigin("*")
     public ResponseEntity<Boolean>  updateComment(@RequestBody CommentUpdateRequestDto dto) {
         return ResponseEntity.ok(commentService.updateComment(dto));
     }
     @DeleteMapping(DELETE_BY_ID)
+    @CrossOrigin("*")
     public ResponseEntity<Boolean> deleteComment(String commentId) {
         return ResponseEntity.ok(commentService.deleteComment(commentId));
     }

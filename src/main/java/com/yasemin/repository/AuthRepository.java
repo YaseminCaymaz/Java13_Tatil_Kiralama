@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface AuthRepository extends MongoRepository<Auth, String> {
     Optional<Auth> findByEmail(String email);
+
+    Optional<Auth> findByActivationCode(String activationCode);
 }

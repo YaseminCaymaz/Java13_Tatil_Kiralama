@@ -21,6 +21,7 @@ public class UserProfileController {
     private final UserProfileService userProfileService;
 
     @PostMapping(GET_USER_PROFILE)
+    @CrossOrigin("*")
     public ResponseEntity<UserProfile> getUserProfile(String token){
         return ResponseEntity.ok(userProfileService.getUserProfile(token));
     }
@@ -37,6 +38,7 @@ public class UserProfileController {
         return ResponseEntity.ok(userProfileService.favoriGetAll(token));
     }
     @PutMapping(UPDATE)
+    @CrossOrigin("*")
     public ResponseEntity<UserProfile> update(@RequestBody UpdateUserProfileRequestDto dto){
         return ResponseEntity.ok(userProfileService.update(dto));
     }

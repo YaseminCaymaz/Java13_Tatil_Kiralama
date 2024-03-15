@@ -1,5 +1,6 @@
 package com.yasemin.entity;
 
+import com.yasemin.utility.enums.EStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,4 +23,6 @@ public class UserProfile extends BaseEntity {
     private String surname;
     private String email;
     private String password;
+    @Builder.Default
+    private EStatus status= EStatus.PENDING;
 }

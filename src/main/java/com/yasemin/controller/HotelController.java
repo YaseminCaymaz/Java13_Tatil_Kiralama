@@ -29,6 +29,7 @@ public class HotelController {
         return ResponseEntity.ok(hotelService.getHotelById(id));
     }
     @DeleteMapping(DELETE_BY_ID)
+    @CrossOrigin("*")
     public ResponseEntity<Boolean> deleteHotel(@RequestParam String id,String token){
         return ResponseEntity.ok(hotelService.deleteHotel(id,token));
     }

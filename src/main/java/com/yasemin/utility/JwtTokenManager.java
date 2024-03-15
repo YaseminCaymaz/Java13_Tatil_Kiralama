@@ -30,8 +30,6 @@ public class JwtTokenManager {
             token = JWT.create()
                     .withAudience()
                     .withClaim("authid", authId) // key->value şeklinde açık değerler tutumak için kullanılır.
-                    .withClaim("ahmet_amca","selam nasılsın ?")
-                    .withClaim("liste", List.of("ali","veli","deniz"))
                     .withIssuer(ISSUER) // oluşturan kişi
                     .withIssuedAt(new Date()) // oluşturma zamanı
                     .withExpiresAt(new Date(System.currentTimeMillis()+EXDATE)) // token ın ne zaman süresini dolacağı

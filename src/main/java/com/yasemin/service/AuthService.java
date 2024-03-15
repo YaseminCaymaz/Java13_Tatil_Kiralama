@@ -10,7 +10,7 @@ import com.yasemin.repository.AuthRepository;
 import com.yasemin.repository.UserProfileRepository;
 import com.yasemin.utility.JwtTokenManager;
 import com.yasemin.utility.MailCheckManager;
-import com.yasemin.utility.enums.ERole;
+import com.yasemin.utility.enums.EStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +24,7 @@ public class AuthService {
     private final UserProfileService userProfileService;
     private final JwtTokenManager jwtTokenManager;
     private final MailCheckManager  mailCheckManager;
+    private final MailSenderService mailSenderService;
 
     public Boolean register(AuthRegisterRequestDto dto) {
         Optional<Auth> optionalAuth=authRepository.findByEmail(dto.getEmail());
@@ -33,6 +34,7 @@ public class AuthService {
         if (!dto.getPassword().equals(dto.getRePassword())){
             throw new TatilKiralamaException(ErrorType.ERROR_PASSWORD_NOT_MATCH);
         }
+
       Auth auth = authRepository.save(Auth.builder()
                        .name(dto.getName())
                        .surname(dto.getSurname())
@@ -40,9 +42,23 @@ public class AuthService {
                .email(dto.getEmail())
                .password(dto.getPassword())
                .build());
+        mailSenderService.sendMail(auth.getActivationCode(),auth.getEmail());
         userProfileService.createUserProfile(auth);
+
         return true;
 
+    }
+    public Boolean activation(String activationCode) {
+        Optional<Auth> auth = authRepository.findByActivationCode(activationCode);
+        if (auth.isEmpty())
+            throw new TatilKiralamaException(ErrorType.USER_NOT_FOUND);
+        if (auth.get().getActivationCode().equals(activationCode)) {
+            auth.get().setStatus(EStatus.ACTIVE);
+            authRepository.save(auth.get());
+            userProfileService.activation(auth.get().getId());
+            return true;
+        }
+        return false;
     }
 
     public String login(LoginRequestDto dto) {

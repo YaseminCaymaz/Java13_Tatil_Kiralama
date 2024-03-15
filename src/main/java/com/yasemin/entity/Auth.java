@@ -1,5 +1,7 @@
 package com.yasemin.entity;
 
+import com.yasemin.utility.CodeGenerator;
+import com.yasemin.utility.enums.EStatus;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -27,4 +29,8 @@ public class Auth {
     private String password;
     @Size(min=11, max=11)
     private String phone;
+    @Builder.Default
+    private String activationCode= CodeGenerator.generateCode();
+    @Builder.Default
+    private EStatus status= EStatus.PENDING;
 }

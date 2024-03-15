@@ -26,7 +26,9 @@ public enum ErrorType {
     BOOKING_NOT_FOUND(2009,"Rezervasyon bulunamadı" , HttpStatus.BAD_REQUEST),
     COMMENT_NOT_FOUND_ERROR(2010,"" ,HttpStatus.BAD_REQUEST ),
     FAVORI_HOTEL_EXIST(2011,"Bu favoriotel zaten mevcut." ,HttpStatus.BAD_REQUEST ),
-    FAVORI_HOTEL_NOT_FOUND(2012,"Favori otel bulunamadı" ,HttpStatus.BAD_REQUEST );
+    FAVORI_HOTEL_NOT_FOUND(2012,"Favori otel bulunamadı" ,HttpStatus.BAD_REQUEST ),
+    EXIST_TYPE(2013,"Bu tur zaten mevcut" , HttpStatus.BAD_REQUEST),
+    NOT_EXIST_TYPE(2014,"Bu tur mevcut degil" , HttpStatus.BAD_REQUEST);
 
     int code;
     String message;

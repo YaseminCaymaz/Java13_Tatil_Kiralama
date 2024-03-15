@@ -14,6 +14,7 @@ import com.yasemin.repository.FavoriHotelRepository;
 import com.yasemin.repository.UserProfileRepository;
 import com.yasemin.utility.JwtTokenManager;
 import com.yasemin.utility.enums.ERole;
+import com.yasemin.utility.enums.EStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,7 @@ public class UserProfileService {
         if (role.isEmpty()){
             throw new TatilKiralamaException(ErrorType.INVALID_TOKEN_ERROR);
         }
-        if(!role.get().equals(ERole.USER.toString())){
+        if(!role.get().toUpperCase().equals(ERole.USER.toString())){
             throw new TatilKiralamaException(ErrorType.ROLE_NOT_FOUND);
         }
         Optional<String> userId = jwtTokenManager.validateToken(token);
@@ -105,5 +106,14 @@ public class UserProfileService {
             throw new TatilKiralamaException(ErrorType.FAVORI_HOTEL_NOT_FOUND);
         }
         return favoriHotelList;
+    }
+
+    public void activation(String id) {
+        Optional<UserProfile> optionalAuthId = userProfileRepository.findByAuthId(id);
+        if(optionalAuthId.isEmpty()){
+            throw new TatilKiralamaException(ErrorType.USER_NOT_FOUND);
+        }
+        optionalAuthId.get().setStatus(EStatus.ACTIVE);
+        userProfileRepository.save(optionalAuthId.get());
     }
 }

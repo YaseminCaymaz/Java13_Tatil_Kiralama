@@ -9,3 +9,14 @@ spring:
       database: userdb
       username: user
       password: user*
+  mail:
+    username: yaseminkanmaz15@gmail.com #java13mailusername ismiyle ortam degiskeni olarak eklenecek
+    password:  #java13mailpassword ismiyle ortam degiskeni olarak eklenecek.
+    host: smtp.gmail.com
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
